@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGEO</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">REGEO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="profile.jpg" alt="Profile" id="profilePic" class="rounded-circle" width="30" height="30">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <input type="file" id="uploadPicInput" style="display: none;" accept="image/*">
+                                <a class="dropdown-item" href="#" id="uploadPicBtn">Add Profile Picture</a>
+                            </li>
+                            <li><a class="dropdown-item" href="C:\Users\UVARAJ.A\Desktop\regeo\smart-attendance-geofencing-code\project\myprofile.html">View Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Parallax Background -->
+    <div class="parallax"></div>
+
+    <!-- Login Form Container -->
+    <div class="container">
+        <div class="login-container">
+            <h1 class="text-center title">REGEO</h1>
+            <h6 class="text-center subtitle">St. Joseph's College of Engineering</h6>
+            
+            <form id="loginForm">
+                <div class="form-floating mb-3">
+                    <input type="text" id="name" name="name" class="form-control input-3d" placeholder="Full Name" required>
+                    <label for="name">Full Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="number" name="number" class="form-control input-3d" placeholder="Roll Number" required>
+                    <label for="number">Roll Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="dept" name="dept" class="form-control input-3d" placeholder="Dept & Sec" required>
+                    <label for="dept">Dept & Sec</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" id="email" name="email" class="form-control input-3d" placeholder="Email ID" required>
+                    <label for="email">Email ID</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="tel" id="phone" name="phone" class="form-control input-3d" placeholder="Phone Number" required>
+                    <label for="phone">Phone Number</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-3d">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Select elements
+        const profilePic = document.getElementById('profilePic');
+        const uploadPicBtn = document.getElementById('uploadPicBtn');
+        const profileInput = document.getElementById('profileInput');
+
+        // Event listener for "Add Profile Picture" button
+        uploadPicBtn.addEventListener('click', () => {
+            profileInput.click();
+        });
+
+        // Event listener for file selection
+        profileInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const imageDataUrl = event.target.result;
+                    localStorage.setItem('profilePic', imageDataUrl);
+                    profilePic.src = imageDataUrl;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Load saved profile picture from localStorage
+        window.onload = function () {
+            const savedPic = localStorage.getItem('profilePic');
+            if (savedPic) {
+                profilePic.src = savedPic;
+            }
+        };
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

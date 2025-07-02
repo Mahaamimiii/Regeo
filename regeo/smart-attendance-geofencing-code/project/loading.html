@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Animation - Regeo</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            flex-direction: column;
+        }
+        svg {
+            width: 800px;
+            height: 150px;
+        }
+        text {
+            font-size: 50px;
+            fill: none;
+            stroke: url(#blueGradient);
+            stroke-width: 4;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 4s ease-in-out forwards;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = "location.html";
+        }, 3000); // Redirect after 5 seconds
+    </script>
+</head>
+<body>
+    <svg viewBox="0 0 800 150">
+        <defs>
+            <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1e3c72" />
+                <stop offset="100%" stop-color="#2a5298" />
+            </linearGradient>
+        </defs>
+        <text x="400" y="75">Regeo</text>
+        <text x="400" y="120" font-size="30" stroke="url(#blueGradient)" stroke-width="3" stroke-dasharray="800" stroke-dashoffset="800" animation="draw 4s ease-in-out forwards" font-family="Arial, sans-serif" font-weight="bold">Your attendance our guarantee</text>
+    </svg>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Background Image</title>
+<link rel="icon" href="sjce.png" type="image/x-icon">
+
+
+<style type="text/css">
+
+body{
+
+
+background-image: url("St.jpg");
+
+
+
+}
+</style>
+
+<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <img src="sjce.png" width="50" height="50">
+<title>
+    Timetable - St. Joseph's College of Engineering</title>
+    <style>
+        
+/* Dark Mode */
+body.dark-mode {
+    background: #000000;
+    color: #f4f4f4;
+}
+
+        /* General Styles */
+        body {
+
+            font-family: 'Poppins', sans-serif;
+    
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background= 0.3s ease;
+        }
+        
+
+
+
+        h1 {
+            color: #0b07d6;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #000000;
+            color: #f4f4f4;
+        }
+
+        table {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            transition: 0.3s ease;
+        }
+        
+        
+        body.dark-mode table {
+            background: #333;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+        }
+
+        body.dark-mode th {
+            background-color: #2980b9;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        body.dark-mode td {
+            background-color: #444;
+        }
+
+        /* Button Styling */
+        .status-button {
+            padding: 10px 18px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-button.absent {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .status-button.present {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .status-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 6px;
+            transition: 0.3s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #1a252f;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        body.dark-mode footer {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Timetable - St. Joseph's College of Engineering</h1>
+     
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Time</th>
+                <th>Venue</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Period 1</td>
+                <td>7:50am- 8:40am</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 1)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 2</td>
+                <td>8:40am - 9:30am</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 2)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 3</td>
+                <td>9:40am - 10:20am</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 3)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 4</td>
+                <td>10:20am- 11:00am</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 4)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 5</td>
+                <td>11:00am- 11:40am</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 5)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 6</td>
+                <td>11:40am- 12:20pm</td>
+                <td>IT - A</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 6)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 7</td>
+                <td>1:00pm - 1:40pm</td>
+                <td>IT Lab</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 7)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 8</td>
+                <td>1:40pm - 2:20pm</td>
+                <td>IT Lab</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 8)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 9</td>
+                <td>2:20pm - 3:00pm</td>
+                <td>IT Lab</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 9)">Absent</button></td>
+            </tr>
+            <tr>
+                <td>Period 10</td>
+                <td>7:30pm - 9:00pm</td>
+                <td>IT Lab</td>
+                <td><button class="status-button absent" onclick="toggleStatus(this, 10)">Absent</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>© 2025 St. Joseph's College | All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load saved attendance from localStorage
+        document.addEventListener("DOMContentLoaded", function () {
+    let isStudentPresent = localStorage.getItem("isStudentPresent") === "true";
+    let lastAttendanceTime = localStorage.getItem("lastAttendanceTime");
+
+    if (!isStudentPresent || !lastAttendanceTime) return;
+
+    let timetable = [
+        { period: 1, ti: "07:50" },
+        { period: 2, time: "08:me40" },
+        { period: 3, time: "09:40" },
+        { period: 4, time: "10:20" },
+        { period: 5, time: "11:00" },
+        { period: 6, time: "11:40" },
+        { period: 7, time: "13:00" },
+        { period: 8, time: "13:40" },
+        { period: 9, time: "14:20" },
+        { period: 10, time: "19:30" },
+    ];
+
+    let savedAttendance = JSON.parse(localStorage.getItem("attendance")) || {};
+
+    let currentPeriod = timetable.find(p => p.time === lastAttendanceTime);
+    
+    if (currentPeriod) {
+        let buttons = document.querySelectorAll(".status-button");
+        let button = buttons[currentPeriod.period - 1]; // Select correct button based on period
+        
+        if (button) {
+            button.classList.remove("absent");
+            button.classList.add("present");
+            button.textContent = "Present";
+            savedAttendance[currentPeriod.period] = "Present";
+        }
+    }
+
+    localStorage.setItem("attendance", JSON.stringify(savedAttendance));
+});
+
+
+    </script>
+
+</body>
+</html>

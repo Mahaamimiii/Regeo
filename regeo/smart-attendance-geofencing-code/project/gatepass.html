@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Gatepass Form</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("St.jpg") no-repeat center center fixed;
+            background-size: cover;
+            perspective: 1000px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(249, 249, 249, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transform: rotateY(10deg);
+            transition: transform 0.5s;
+        }
+        .form-container:hover {
+            transform: rotateY(0deg);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #0056b3, #003d80);
+        }
+    </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Staff Gatepass Form</h2>
+        <form id="gatepass-form">
+            <label for="staff-name">Staff Name:</label>
+            <input type="text" id="staff-name" name="staff-name" required>
+
+            <label for="staff-id">Staff ID:</label>
+            <input type="text" id="staff-id" name="staff-id" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time-out">Time Out:</label>
+            <input type="time" id="time-out" name="time-out" required>
+
+            <label for="time-in">Time In:</label>
+            <input type="time" id="time-in" name="time-in" required>
+
+            <label for="reason">Reason for Leaving:</label>
+            <textarea id="reason" name="reason" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZ7qS...",
+            authDomain: "gatepass-d66ef.firebaseapp.com",
+            projectId: "gatepass-d66ef",
+            storageBucket: "gatepass-d66ef.firebasestorage.app",
+            messagingSenderId: "124661399784",
+            appId: "1:124661399784:web:925c348bd3df4c725cc95d",
+            measurementId: "G-3TP71R0DSH"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        // Handle form submission
+        document.getElementById('gatepass-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            const staffName = document.getElementById('staff-name').value;
+            const staffId = document.getElementById('staff-id').value;
+            const department = document.getElementById('department').value;
+            const date = document.getElementById('date').value;
+            const timeOut = document.getElementById('time-out').value;
+            const timeIn = document.getElementById('time-in').value;
+            const reason = document.getElementById('reason').value;
+
+            try {
+                // Save data to Firestore
+                await db.collection('gatepasses').add({
+                    staffName: staffName,
+                    staffId: staffId,
+                    department: department,
+                    date: date,
+                    timeOut: timeOut,
+                    timeIn: timeIn,
+                    reason: reason
+                });
+                alert("Gatepass Submitted Successfully!");
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+        });
+    </script>
+</body>
+</html>

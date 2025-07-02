@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Faculty Timetable</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0b07d6;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #222;
+            color: #f4f4f4;
+        }
+
+        body.dark-mode table {
+            background-color: #444;
+        }
+
+        body.dark-mode th {
+            background-color: #555;
+        }
+
+        body.dark-mode td {
+            background-color: #666;
+        }
+
+        .toggle-btn {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background-color: #1a252f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Faculty Timetable - St. Joseph's College of Engineering</h1>
+
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Period</th>
+                <th>Time</th>
+                <th>Venue</th>
+            </tr>
+        </thead>
+        <tbody id="timetable-body">
+            <!-- Timetable Rows will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        const timetable = [
+            {
+                day: "Monday",
+                periods: [
+                    { period: 1, time: "9:00 - 10:00 AM", venue: "Room A1" },
+                    { period: 2, time: "10:00 - 11:00 AM", venue: "Room B1" }
+                ]
+            },
+            {
+                day: "Tuesday",
+                periods: [
+                    { period: 1, time: "9:00 - 10:00 AM", venue: "Room A2" },
+                    { period: 2, time: "10:00 - 11:00 AM", venue: "Room B2" }
+                ]
+            }
+        ];
+
+        function generateTimetable() {
+            let timetableBody = document.getElementById('timetable-body');
+            timetableBody.innerHTML = ''; // Clear existing table rows before adding
+
+            timetable.forEach(day => {
+                day.periods.forEach((period, index) => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index === 0 ? day.day : ''}</td>
+                        <td>Period ${period.period}</td>
+                        <td>${period.time}</td>
+                        <td>${period.venue}</td>
+                    `;
+                    timetableBody.appendChild(row);
+                });
+            });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        window.onload = generateTimetable;
+    </script>
+
+</body>
+</html>

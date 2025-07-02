@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url('St.jpg'); /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px; /* Adjust width as needed */
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 200px; /* Adjust logo size */
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333; /* Darker heading color */
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #777; /* Slightly lighter label color */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 12px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffc107; /* Yellow button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #007bff; /* Blue link color */
+            text-decoration: none;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="logo">
+        <img src="logo.jpg" alt="University Logo"> 
+    </div>
+    
+    <h2 class="login-title">STAFF LOGIN</h2>
+
+    <form action="adminnn.html" method="GET">
+        <div class="input-group">
+            <label for="pf_number">Staff user id</label>
+            <input type="text" id="pf_number" name="pf_number" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit">Login</button>
+        
+    </form>
+
+    <div class="forgot-password">
+        <a href="#">Forgot Password?</a>
+    </div>
+</div>
+
+</body>
+</html>

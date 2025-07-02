@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Camera with Motion Detection</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('St.jpg');
+            margin: 0;
+            padding: 0px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            color: #fff;
+            font-size: 2rem;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            border: 5px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+            transform: scale(1);
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        #startCamera {
+            background: #28a745;
+            color: white;
+        }
+        #stopCamera {
+            background: #dc3545;
+            color: white;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 5px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #capturedImage {
+            margin-top: 20px;
+            display: none;
+            border: 5px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+
+<body> 
+    <center>
+        <img src="logo.jpg" width="70" height="70">
+        <h1> St. Joseph's College of Engineering</h1>
+    </center>
+    <h1>Live Camera Feed</h1>
+    <video id="video" autoplay></video>
+    <div class="buttons">
+        <button id="startCamera"><i class="fas fa-video"></i> Allow Camera</button>
+        <button id="stopCamera" disabled><i class="fas fa-stop"></i> Stop Camera</button>
+    </div>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <img id="capturedImage" alt="Captured Image">
+    <div id="status">We really value your patience</div>
+    
+    <script>
+        const video = document.getElementById('video');
+        const startCameraButton = document.getElementById('startCamera');
+        const stopCameraButton = document.getElementById('stopCamera');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const statusText = document.getElementById('status');
+        const capturedImage = document.getElementById('capturedImage');
+
+        // Fixed College Location (Latitude & Longitude)
+        const targetLocation = { lat: 13.173701058468684, lon: 80.09724316480435 };
+        const locationThreshold = 0.01;
+        let mediaStream = null;
+
+        async function startCamera() {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = mediaStream;
+                startCameraButton.disabled = true;
+                stopCameraButton.disabled = false;
+                setTimeout(captureImage, 1000);
+            } catch (err) {
+                alert("Camera permission denied. Please enable the camera.");
+            }
+        }
+
+        function stopCamera() {
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                startCameraButton.disabled = false;
+                stopCameraButton.disabled = true;
+                statusText.textContent = "You are not in the live location.";
+                capturedImage.style.display = "none";
+            }
+        }
+
+        function captureImage() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0);
+            capturedImage.src = canvas.toDataURL('image/png');
+            capturedImage.style.display = "block";
+            
+            navigator.geolocation.getCurrentPosition(position => {
+                const { latitude, longitude } = position.coords;
+                checkLocation(latitude, longitude);
+            }, () => {
+                statusText.textContent = "Unable to retrieve location.";
+                redirectToTimetable(false);
+            });
+        }
+
+        function checkLocation(latitude, longitude) {
+            const isPresent = Math.abs(latitude - targetLocation.lat) < locationThreshold &&
+                              Math.abs(longitude - targetLocation.lon) < locationThreshold;
+            
+            if (isPresent) {
+                statusText.textContent = "🎉 Student is Present 🎉";
+                localStorage.setItem("isStudentPresent", "true");
+            } else {
+                statusText.textContent = "❌ Student is Absent ❌";
+                localStorage.setItem("isStudentPresent", "false");
+            }
+
+            // Store attendance timestamp
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+            localStorage.setItem("lastAttendanceTime", currentTime);
+
+            // Redirect to timetable.html after 2 seconds
+            setTimeout(() => {
+                window.location.href = "stafftimetable.html";
+            }, 2000);
+        }
+
+        startCameraButton.addEventListener('click', startCamera);
+        stopCameraButton.addEventListener('click', stopCamera);
+
+    </script>
+    
+</body>
+</html>

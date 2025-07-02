@@ -1,0 +1,62 @@
+/* General Styles */
+body {
+    background: linear-gradient(to right, #4a02d2, #3c03db);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container Styling */
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Heading */
+h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Buttons */
+.button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* OD Form Button */
+.od-button {
+    background: #3498db;
+}
+
+.od-button:hover {
+    background: #217dbb;
+}
+
+/* Leave Form Button */
+.leave-button {
+    background: #e74c3c;
+}
+
+.leave-button:hover {
+    background: #c0392b;
+}

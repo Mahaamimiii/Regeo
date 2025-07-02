@@ -1,0 +1,188 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Duty Form</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        .header h1, .header h3 {
+            margin: 5px 0;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .table th, .table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .footer p {
+            margin-bottom: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- College Header -->
+        <div class="header">
+            <img src="C:\Users\Ajaykumar\Pictures\Camera Roll\sjce.jpg" alt="College Logo"> 
+            <h1>St. JOSEPH'S COLLEGE OF ENGINEERING</h1>
+            <h3>(An Autonomous Institution)</h3>
+            <p>St. Joseph's Group of Institutions | Jeppiaar Educational Trust</p>
+            <p>OMR, Chennai-119</p>
+        </div>
+
+        <!-- On Duty Form -->
+        <div class="details">
+            <h2 style="text-align: center;">ON DUTY FORM</h2>
+
+            <p><strong>Date of On Duty:</strong> <input type="date" id="dutyDate"></p>
+            <p><strong>Student Name:</strong> <input type="text" id="studentName" placeholder="Enter your name"></p>
+            <p><strong>Department:</strong> <input type="text" id="department" placeholder="Enter your department"></p>
+            <p><strong>Register Number:</strong> <input type="text" id="registerNo" placeholder="Enter your register number"></p>
+
+            <h3>Reason for On Duty</h3>
+            <textarea id="reason" rows="4" cols="50" placeholder="Enter reason..."></textarea>
+        </div>
+
+        <!-- Table for Subject Details -->
+        <table class="table">
+            <tr>
+                <th>Subject</th>
+                <th>Faculty In-charge</th>
+                <th>Signature</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="subject1" placeholder="Enter Subject"></td>
+                <td><input type="text" id="faculty1" placeholder="Faculty Name"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="subject2" placeholder="Enter Subject"></td>
+                <td><input type="text" id="faculty2" placeholder="Faculty Name"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="subject3" placeholder="Enter Subject"></td>
+                <td><input type="text" id="faculty3" placeholder="Faculty Name"></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Approval Footer -->
+        <div class="footer">
+            <p><strong>HOD Signature: _______________</strong></p>
+            <p><strong>Principal Signature: _______________</strong></p>
+            <button class="btn" onclick="printForm()">Print Form</button>
+            <button class="btn" onclick="downloadDetails()">Download Details</button>
+        </div>
+    </div>
+
+    <script>
+        function printForm() {
+            window.print();  // Opens the print dialog to print the form
+        }
+
+        function downloadDetails() {
+            // Collect form data
+            const dutyDate = document.getElementById("dutyDate").value;
+            const studentName = document.getElementById("studentName").value;
+            const department = document.getElementById("department").value;
+            const registerNo = document.getElementById("registerNo").value;
+            const reason = document.getElementById("reason").value;
+
+            // Collect subjects and faculty
+            const subject1 = document.getElementById("subject1").value;
+            const faculty1 = document.getElementById("faculty1").value;
+            const subject2 = document.getElementById("subject2").value;
+            const faculty2 = document.getElementById("faculty2").value;
+            const subject3 = document.getElementById("subject3").value;
+            const faculty3 = document.getElementById("faculty3").value;
+
+            // Format data
+            const details = `
+                St. JOSEPH'S COLLEGE OF ENGINEERING
+                (An Autonomous Institution)
+                St. Joseph's Group of Institutions | Jeppiaar Educational Trust
+                OMR, Chennai-119
+
+                ON DUTY FORM
+
+                Date of On Duty: ${dutyDate}
+                Student Name: ${studentName}
+                Department: ${department}
+                Register Number: ${registerNo}
+
+                Reason for On Duty:
+                ${reason}
+
+                Subjects and Faculty:
+                1. ${subject1} - Faculty: ${faculty1}
+                2. ${subject2} - Faculty: ${faculty2}
+                3. ${subject3} - Faculty: ${faculty3}
+
+                HOD Signature: _______________
+                Principal Signature: _______________
+            `;
+
+            // Create a Blob (file)
+            const blob = new Blob([details], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "OnDutyForm.txt";  // File name
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+
+</body>
+</html>

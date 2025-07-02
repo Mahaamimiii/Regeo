@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance </title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+   <!---<center>St. Joseph's College</center> -->
+    <style>
+        /* Define CSS variables for light and dark themes */
+        :root {
+            --background : #f0f0f0;
+            --container-bg: white;
+            --text-color: #333;
+            --button-bg: #05135f;
+            --button-hover-bg: #b9a635;
+            --mark-in-button-border: #28a745;
+            --mark-in-button-hover-bg: #28a745;
+            --icon-color: #05135f;
+            --icon-hover-color: #b9a635;
+        }
+        .parallax {
+        background: url("St.jpg");/*no-repeat center center fixed*/
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+       }
+
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --container-bg: #333;
+            --text-color: #f0f0f0;
+            --button-bg: #444;
+            --button-hover-bg: #555;
+            --mark-in-button-border: #28a745;
+            --mark-in-button-hover-bg: #28a745;
+            --icon-color: #f0f0f0;
+            --icon-hover-color: #3498db;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("St.jpg");/* no-repeat center center fixed*/
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--text-color);
+            transition: background-color 0.5s, color 0.5s;
+        }
+       
+
+        h1 {
+            color: var(--text-color);
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--container-bg);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s, transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        p {
+            font-size: 20px;
+            margin: 20px 0;
+            color: var(--text-color);
+        }
+
+        .period-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .period {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .period button {
+            width: 120px;
+            height: 120px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--button-bg);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .period button:hover {
+            background-color: var(--button-hover-bg);
+            transform: scale(1.1);
+        }
+
+        .period button:active {
+            animation: bounce 0.5s;
+        }
+
+        .mark-in-button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: 2px solid var(--mark-in-button-border);
+            border-radius: 5px;
+            background-color: transparent;
+            color: var(--mark-in-button-border);
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .mark-in-button:hover {
+            background-color: var(--mark-in-button-hover-bg);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .icons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .icons a {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--icon-color);
+            font-size: 22px;
+            margin: 10px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .icons a:hover {
+            color: var(--icon-hover-color);
+            transform: scale(1.1);
+        }
+
+        .icons a:active {
+            animation: bounce 0.5s;
+        }
+
+        .icons i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Dark theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .period button {
+                width: 90px;
+                height: 90px;
+                font-size: 18px;
+            }
+
+            .icons a {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            .period button {
+                width: 70px;
+                height: 70px;
+                font-size: 14px;
+            }
+
+            .icons a {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+   <!---- <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>-->
+    <div class="container">
+        <center>
+        <img src="logo.jpg"150px">
+         <h1> Mark Attendance </h1>
+            
+                <h1 style="color: #7c030d";> St.Joseph's College  Of Engineering </h1>
+                <h2 style="color: #ad880b";> (An Autonomus Institution) </h2>
+                <h2 style="color: #5d1574";> St.Joseph's Group of Institution </h2>
+                <h3 style="color: #0a0a0a";> OMR, Chennai-119</h3>
+      </center>
+        <p>Today's Date: <span id="date"></span></p>
+        <div class="period-buttons">
+            <!-- Period buttons without "Mark In" initially -->
+            <div class="period" id="period1">
+                <button>Period 1</button>
+            </div>
+            <div class="period" id="period2">
+                <button>Period 2</button>
+            </div>
+            <div class="period" id="period3">
+                <button>Period 3</button>
+            </div>
+            <div class="period" id="period4">
+                <button>Period 4</button>
+            </div>
+            <div class="period" id="period5">
+                <button>Period 5</button>
+            </div>
+            <div class="period" id="period6">
+                <button>Period 6</button>
+            </div>
+            <div class="period" id="period7">
+                <button>Period 7</button>
+            </div>
+            <div class="period" id="period8">
+                <button>Period 8</button>
+            </div>
+            <div class="period" id="period9">
+                <button>Period 9</button>
+            </div>
+            <div class="period" id="period10">
+                <button>Period 10</button>
+            </div>
+        </div>
+
+        <div class="icons">
+            <!-- Icons for additional functionalities -->
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i><br>Timetable</a>
+            <a href="C:\Users\syeda\project\leaveapproval.html"><i class="fas fa-user-times"></i><br>Leave Approval</a>
+            <a href="int.html"><i class="fas fa-check-circle"></i><br>Internal Checker</a>
+            <a href="rewards.html"><i class="fas fa-trophy"></i><br>Rewards</a>
+        </div>
+    </div>
+
+    <script>
+        // Display today's date
+        const dateElement = document.getElementById('date');
+        const today = new Date().toLocaleDateString();
+        dateElement.textContent = today;
+
+        // JavaScript function to display the "Mark In" button
+        const periods = document.querySelectorAll('.period');
+
+        periods.forEach(period => {
+            period.addEventListener('click', function() {
+                // Remove existing Mark In buttons from other periods
+                document.querySelectorAll('.mark-in-button').forEach(button => button.remove());
+
+                // Create a new "Mark In" button
+                const markInButton = document.createElement('button');
+                markInButton.className = 'mark-in-button';
+                markInButton.textContent = 'Mark In';
+
+                // Append the "Mark In" button to the clicked period
+                period.appendChild(markInButton);
+
+                // Add an event listener to navigate to camera1.html when clicked
+                markInButton.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent event bubbling to parent period
+                    window.location.href = "camera1.html"; // Redirect to camera1.html
+                });
+            });
+        });
+
+        // Dark theme toggle function
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+    </script>
+</body>
+</html>

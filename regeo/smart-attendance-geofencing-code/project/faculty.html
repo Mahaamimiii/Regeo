@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Faculty Timetable</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            background: url("St.jpg") ;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0b07d6;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        .period-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .period-button:hover {
+            background-color: #1a252f;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            opacity: 0.9;
+            z-index: 1000;
+        }
+
+        .popup.show {
+            display: block;
+            animation: fadeInOut 3s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #000000;
+            color: #f4f4f4;
+        }
+
+        /* Dark Mode Table */
+        body.dark-mode table {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Faculty Timetable - St. Joseph's College of Engineering</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Period</th>
+                <th>Time</th>
+                <th>Venue</th>
+                <th>Status</th>
+        
+            </tr>
+        </thead>
+        <tbody id="timetable-body">
+            <!-- Timetable Rows will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <div id="popup" class="popup"></div>
+
+    <script>
+        // Timetable Data (7 Days, Multiple Periods)
+        const timetable = [
+            { day: 'Monday', periods: [
+                { period: 1, time: '10:00am - 11:00am', venue: 'Lecture Hall 1', inTime: '10:00am', outTime: '11:00am' },
+                { period: 2, time: '11:15am - 12:15pm', venue: 'Lecture Hall 2', inTime: '11:15am', outTime: '12:15pm' },
+                { period: 3, time: '12:30pm - 1:30pm', venue: 'Lecture Hall 3', inTime: '12:30pm', outTime: '1:30pm' },
+            ]},
+            { day: 'Tuesday', periods: [
+                { period: 1, time: '09:00am - 10:00am', venue: 'IT Lab', inTime: '09:00am', outTime: '10:00am' },
+                { period: 2, time: '10:15am - 11:15am', venue: 'IT Lab', inTime: '10:15am', outTime: '11:15am' },
+                { period: 3, time: '11:30am - 12:30pm', venue: 'Lecture Hall 4', inTime: '11:30am', outTime: '12:30pm' },
+            ]},
+            { day: 'Wednesday', periods: [
+                { period: 1, time: '10:00am - 11:00am', venue: 'Lecture Hall 1', inTime: '10:00am', outTime: '11:00am' },
+                { period: 2, time: '11:15am - 12:15pm', venue: 'Lecture Hall 2', inTime: '11:15am', outTime: '12:15pm' },
+                { period: 3, time: '12:30pm - 1:30pm', venue: 'Lecture Hall 3', inTime: '12:30pm', outTime: '1:30pm' },
+            ]},
+            { day: 'Thursday', periods: [
+                { period: 1, time: '09:00am - 10:00am', venue: 'IT Lab', inTime: '09:00am', outTime: '10:00am' },
+                { period: 2, time: '10:15am - 11:15am', venue: 'IT Lab', inTime: '10:15am', outTime: '11:15am' },
+                { period: 3, time: '11:30am - 12:30pm', venue: 'Lecture Hall 4', inTime: '11:30am', outTime: '12:30pm' },
+            ]},
+            { day: 'Friday', periods: [
+                { period: 1, time: '10:00am - 11:00am', venue: 'Lecture Hall 1', inTime: '10:00am', outTime: '11:00am' },
+                { period: 2, time: '11:15am - 12:15pm', venue: 'Lecture Hall 2', inTime: '11:15am', outTime: '12:15pm' },
+                { period: 3, time: '12:30pm - 1:30pm', venue: 'Lecture Hall 3', inTime: '12:30pm', outTime: '1:30pm' },
+            ]},
+            { day: 'Saturday', periods: [
+                { period: 1, time: '09:00am - 10:00am', venue: 'IT Lab', inTime: '09:00am', outTime: '10:00am' },
+                { period: 2, time: '10:15am - 11:15am', venue: 'IT Lab', inTime: '10:15am', outTime: '11:15am' },
+                { period: 3, time: '11:30am - 12:30pm', venue: 'Lecture Hall 4', inTime: '11:30am', outTime: '12:30pm' },
+            ]},
+            { day: 'Sunday', periods: [] },  // Sunday - No periods
+        ];
+
+        // Function to generate timetable dynamically
+        function generateTimetable() {
+            let timetableBody = document.getElementById('timetable-body');
+            timetable.forEach(day => {
+                day.periods.forEach(period => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${day.day}</td>
+                        <td>Period ${period.period}</td>
+                        <td>${period.time}</td>
+                        <td>${period.venue}</td>
+                        <td><button class="period-button" onclick="showPopup('${period.inTime}', '${period.outTime}', ${period.period})">Attend</button></td>
+                    `;
+                    timetableBody.appendChild(row);
+                });
+            });
+        }
+
+        // Show popup with in and out times and check if late
+        function showPopup(inTime, outTime, period) {
+            let popup = document.getElementById('popup');
+            let currentTime = new Date();
+
+            // Convert inTime and outTime to Date objects for comparison
+            let [inHours, inMinutes, inAmPm] = inTime.match(/(\d+):(\d+)(am|pm)/).slice(1);
+            let [outHours, outMinutes, outAmPm] = outTime.match(/(\d+):(\d+)(am|pm)/).slice(1);
+
+            inHours = inAmPm === "pm" && inHours !== "12" ? parseInt(inHours) + 12 : inHours;
+            outHours = outAmPm === "pm" && outHours !== "12" ? parseInt(outHours) + 12 : outHours;
+
+            let inTimeDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), inHours, inMinutes);
+            let outTimeDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), outHours, outMinutes);
+
+            let lateMessage = '';
+            if (currentTime > outTimeDate) {
+                let diff = Math.abs(currentTime - outTimeDate);
+                let lateMinutes = Math.floor(diff / (1000 * 60)); // Get the difference in minutes
+                lateMessage = 'You are ${lateMinutes} minutes late';
+            }
+
+            popup.innerHTML = `
+                <strong>Period ${period}</strong><br>
+                In Time: ${inTime}<br>
+                Out Time: ${outTime}<br>
+                ${lateMessage}
+            `;
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        // Generate the timetable on page load
+        window.onload = generateTimetable;
+    </script>
+</body>
+</html>

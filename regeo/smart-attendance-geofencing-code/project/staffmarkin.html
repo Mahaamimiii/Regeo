@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Attendance</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    
+    <style>
+        :root {
+            --background: #f0f0f0;
+            --container-bg: white;
+            --text-color: #333;
+            --button-bg: #05135f;
+            --button-hover-bg: #b9a635;
+            --mark-in-button-border: #28a745;
+            --mark-in-button-hover-bg: #28a745;
+            --icon-color: #05135f;
+            --icon-hover-color: #b9a635;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url("St.jpg") no-repeat center center/cover;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 20px;
+            margin: 20px 0;
+            color: var(--text-color);
+        }
+
+        .period-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .period {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .period button {
+            width: 120px;
+            height: 120px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--button-bg);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .period button:hover {
+            background-color: var(--button-hover-bg);
+            transform: scale(1.1);
+        }
+
+        .mark-in-button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: 2px solid var(--mark-in-button-border);
+            border-radius: 5px;
+            background-color: transparent;
+            color: var(--mark-in-button-border);
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .mark-in-button:hover {
+            background-color: var(--mark-in-button-hover-bg);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .icons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .icons a {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--icon-color);
+            font-size: 22px;
+            margin: 10px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .icons a:hover {
+            color: var(--icon-hover-color);
+            transform: scale(1.1);
+        }
+
+        .icons i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .period button {
+                width: 90px;
+                height: 90px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            .period button {
+                width: 70px;
+                height: 70px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <center>
+            <img src="sjce.png" width="150px">
+            <h1>Staff Attendance</h1>
+            <h1 style="color: #7c030d;">St. Joseph's College Of Engineering</h1>
+            <h2 style="color: #ad880b;">(An Autonomous Institution)</h2>
+            <h2 style="color: #5d1574;">St. Joseph's Group of Institutions</h2>
+            <h3 style="color: #0a0a0a;">OMR, Chennai-119</h3>
+        </center>
+
+        <p>Today's Date: <span id="date"></span></p>
+
+        <div class="period-buttons">
+            <div class="period" id="period1"><button>Period 1</button></div>
+            <div class="period" id="period2"><button>Period 2</button></div>
+            <div class="period" id="period3"><button>Period 3</button></div>
+            <div class="period" id="period4"><button>Period 4</button></div>
+            <div class="period" id="period5"><button>Period 5</button></div>
+            <div class="period" id="period6"><button>Period 6</button></div>
+            <div class="period" id="period7"><button>Period 7</button></div>
+        </div>
+
+        <div class="icons">
+            <a href="faculty.html"><i class="fas fa-calendar-alt"></i><br>Timetable</a>
+            <a href="leaveapproval.html"><i class="fas fa-user-check"></i><br>Leave Requests</a>
+            <a href="gatepass.html"><i class="fas fa-file-alt"></i><br>Gate pass</a>
+        </div>
+    </div>
+
+    <script>
+        // Display today's date
+        document.getElementById('date').textContent = new Date().toLocaleDateString();
+
+        // JavaScript function to display the "Mark In" button
+        const periods = document.querySelectorAll('.period');
+
+        periods.forEach(period => {
+            period.addEventListener('click', function() {
+                // Remove existing Mark In buttons from other periods
+                document.querySelectorAll('.mark-in-button').forEach(button => button.remove());
+
+                // Create a new "Mark In" button
+                const markInButton = document.createElement('button');
+                markInButton.className = 'mark-in-button';
+                markInButton.textContent = 'Mark In';
+
+                // Append the "Mark In" button to the clicked period
+                period.appendChild(markInButton);
+
+                // Add an event listener to navigate to camera1.html when clicked
+                markInButton.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent event bubbling to parent period
+                    window.location.href = "camera1.html"; // Redirect to camera1.html
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>

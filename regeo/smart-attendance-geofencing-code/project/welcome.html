@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Mobile Number</title>
+    <link rel="icon" href="C:\Users\LENOVO\project\project\sjce.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+
+           
+            
+            
+        }
+        .mobile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.381);
+            width: 300px;
+            text-align: center;
+        }
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+        <div class="overlay">
+        <!-- Header -->
+        <div class="header">
+              <center><img src="C:\Users\Ajaykumar\Downloads\logo-removebg-preview (1).png" width="100px" alt="College Logo" >
+              <h2 style="color: rgb(184, 21, 21);">St. JOSEPH'S COLLEGE OF ENGINEERING</h2>
+                 <h3 style="color: rgb(203, 28, 185);">(An Autonomous Institution)</h3>
+                      <h2 style="color: rgb(227, 161, 7);">St. JOSEPH'S GROUP OF INSTITUTIONS</h2>
+                         <h3 style="color: rgba(241, 241, 249, 0.837);">OMR, CHENNAI-119</h3> </center>
+        </div> 
+
+    <center><div class="mobile-container"></center>
+        <h1>Welcome!</h1>
+        <h6>Enter your mobile number login!</h6>
+        <form action="/submit_mobile" method="post">
+            <input type="tel" id="phone" name="phone" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+            <a href="otp.html">Send OTP</a>
+
+        </form>
+    </div>
+    <link rel="stylesheet" href="welcome.css">
+
+
+    </body>
+        
+    
+</html>
